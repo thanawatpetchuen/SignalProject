@@ -6,10 +6,11 @@ import visa
 import math
 import time
 
+
 class main_gui:
     def __init__(self):
         self.app = gui("RIGOL")
-        self.file = open("./data.txt", "w")
+        self.file = open("data.txt", "w")
         rm = visa.ResourceManager()
         instruments = rm.list_resources()  # Get the list of device id
         usb_instru = list(filter(lambda x: 'USB' in x, instruments))  # Filter and list usb device
@@ -135,6 +136,11 @@ class main_gui:
         print("vrms: {}".format(vrms))
         print("time: {}".format(times))
         print("phase: {}".format(phase))
+
+        for i in range(len(phase)):
+            if float(phase[i]) < 0:
+                phase[i] = float(phase[i]) * -1
+            # print(phase[i])
 
         del vrms[0]
         del times[0]
